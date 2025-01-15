@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch Tower | Clock Worldwide | Global Time Zone</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Changa+One:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle, rgba(38, 38, 38, 1) 0%, rgba(3, 37, 65, 1) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      align-items: center;
+      font-family: "Changa One", serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    .clock-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 500px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .circle {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      border: 5px solid #fff;
+      color: white;
+      font-size: 32px;
+      font-weight: bold;
+      position: relative;
+      box-shadow: 5px 5px 50px #000000bb;
+    }
+
+    .circle-hour {
+      border-color: #ff6347;
+      text-shadow: 1px 1px 2px black, 0 0 25px rgba(183, 21, 15, 0.742), 0 0 50px rgb(139, 0, 0);
+    }
+
+    .circle-minute {
+      border-color: #32cd32;
+      text-shadow: 1px 1px 2px black, 0 0 25px rgb(27, 168, 43), 0 0 50px rgb(1, 62, 19);
+    }
+
+    .circle-second {
+      border-color: #1e90ff;
+      text-shadow: 1px 1px 2px black, 0 0 25px rgb(22, 112, 154), 0 0 50px rgb(2, 92, 101);
+    }
+
+    .time-number {
+      text-align: center;
+    }
+
+    /* Dots on the border radius of each circle */
+    .dot {
+      position: absolute;
+      width: 5px; /* Smaller dot size */
+      height: 5px; /* Smaller dot size */
+      background-color: white;
+      border-radius: 50%;
+      top: 53%;
+      left: 50%;
+      transform-origin: 50% 0%;
+      transition-duration: 1200ms;
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      width: 100%;
+      padding: 10px;
+      text-shadow: 2px 2px 5px #000000;
+      font-weight: 100;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .clock-container {
+        width: 80%; /* Decrease the clock container width */
+      }
+
+      .circle {
+        width: 100px; /* Reduce circle size */
+        height: 100px;
+        font-size: 24px; /* Reduce font size */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .clock-container {
+        flex-direction: column;
+        width: 90%; /* Further reduce clock container width */
+      }
+
+      .circle {
+        margin-top: 50px;
+        width: 120px;
+        height: 120px;
+        font-size: 18px; /* Further reduce font size */
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="background.css">
+</head>
+
+<body>
+
+    <div class="content"></div>
+        <div class="clock-container">
+            <!-- Circle for Hours, Minutes, Seconds -->
+            <div class="circle circle-hour" id="hour-circle">
+            <div class="time-number" id="hour-number">00</div>
+            <!-- Dot for Hour Circle -->
+            <div class="dot" id="hour-dot"></div>
+            </div>
+
+            <div class="circle circle-minute" id="minute-circle">
+            <div class="time-number" id="minute-number">00</div>
+            <!-- Dot for Minute Circle -->
+            <div class="dot" id="minute-dot"></div>
+            </div>
+
+            <div class="circle circle-second" id="second-circle">
+            <div class="time-number" id="second-number">00</div>
+            <!-- Dot for Second Circle -->
+            <div class="dot" id="second-dot"></div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="https://www.instagram.com/____apurbo.k____/" target="_blank">APURBO KARMOKAR</a></p>
+        </footer>
+    </div>
+
+    <div class="area" >
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div >
+
+  <script>
+    function updateClock() {
+      const hourNumber = document.getElementById('hour-number');
+      const minuteNumber = document.getElementById('minute-number');
+      const secondNumber = document.getElementById('second-number');
+
+      const hourDot = document.getElementById('hour-dot');
+      const minuteDot = document.getElementById('minute-dot');
+      const secondDot = document.getElementById('second-dot');
+
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      // Convert hours to 12-hour format
+      hours = hours % 12;  // Convert to 12-hour format (0-11)
+      if (hours === 0) hours = 12;  // Set 12 instead of 0 for the hour
+      hourNumber.textContent = hours < 10 ? `0${hours}` : hours;
+      minuteNumber.textContent = minutes < 10 ? `0${minutes}` : minutes;
+      secondNumber.textContent = seconds < 10 ? `0${seconds}` : seconds;
+
+      // Calculate the rotation for each dot
+      const hourRotation = (hours % 12) * 30; // 360/12 = 30 degrees per hour
+      const minuteRotation = minutes * 6; // 360/60 = 6 degrees per minute
+      const secondRotation = seconds * 6; // 360/60 = 6 degrees per second
+
+      // Rotate the dots around the perimeter of the circles
+      hourDot.style.transform = `translate(-50%, -50%) rotate(${hourRotation}deg) translateY(-50px)`;
+      minuteDot.style.transform = `translate(-50%, -50%) rotate(${minuteRotation}deg) translateY(-50px)`;
+      secondDot.style.transform = `translate(-50%, -50%) rotate(${secondRotation}deg) translateY(-50px)`;
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+    updateClock(); // Initialize the clock immediately
+  </script>
+
+</body>
+
+</html>
